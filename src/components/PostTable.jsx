@@ -42,18 +42,19 @@ const PostTable = (props) => {
   };
 
   // // re-rendering variables
-  // const makePostRow = () =>
-  //   props.posts.map((post) => (
-  //     <tr key={post._id}>
-  //       <td>{moment(post.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
-  //       <td>{post.text}</td>
-  //       <td>
-  //         {categories.map((category) =>
-  //           category._id === post.category ? category.name : ""
-  //         )}
-  //       </td>
-  //     </tr>
-  //   ));
+  const makePostRow = () =>
+    props.posts.map((post) => (
+      <tr key={post._id}>
+        <td>{moment(post.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
+        <td>{post.text}</td>
+        <td>
+          {categories.map((category) =>
+            category._id === post.category ? category.name : ""
+          )}
+        </td>
+        <td onClick={() => props.deleteItem(post._id)}>X</td>
+      </tr>
+    ));
 
   // use effect
   useEffect(() => {
@@ -64,9 +65,9 @@ const PostTable = (props) => {
     getPosts();
   }, []);
 
-  // useEffect(() => {
-  //   makePostRow();
-  // }, []);
+  useEffect(() => {
+    makePostRow();
+  }, []);
 
   return (
     <div>
@@ -76,9 +77,10 @@ const PostTable = (props) => {
             <th>Date & Time</th>
             <th>Activity</th>
             <th>Category</th>
+            <th>Delete</th>
           </tr>
         </thead>
-        {/*<tbody>{makePostRow()}</tbody>*/}
+        <tbody>{makePostRow()}</tbody>
       </table>
     </div>
   );

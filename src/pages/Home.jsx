@@ -18,7 +18,7 @@ const Home = (props) => {
       const addedPost = await fetch("http://localhost:9000/post", configs);
       const parsedPost = await addedPost.json();
       console.log(parsedPost);
-      setPosts([...posts, parsedPost]);
+      setPosts([parsedPost, ...posts]);
     } catch (e) {
       console.log(e);
     }
@@ -49,6 +49,23 @@ const Home = (props) => {
     }
   };
 
+  const deleteItem = async (id) => {
+    try {
+      const configs = {
+        method: "DELETE",
+      };
+      const deletedItem = await fetch(
+        "http://localhost:9000/post/" + id,
+        configs
+      );
+      const parsedItem = await deletedItem.json();
+      const filteredPosts = posts.filter((post) => post._id !== id);
+      setPosts(filteredPosts);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getPosts();
   }, []);
@@ -56,7 +73,7 @@ const Home = (props) => {
   return (
     <div>
       <AddPost addPost={addPost} posts={posts} setPosts={setPosts} />
-      <PostTable posts={posts} setPosts={setPosts} />
+      <PostTable posts={posts} setPosts={setPosts} deleteItem={deleteItem} />
     </div>
   );
 };
