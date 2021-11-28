@@ -1,14 +1,16 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 const PostTable = (props) => {
   const [categories, setCategories] = useState([]);
 
   // category functions
   const getCategories = async () => {
     try {
-      const allCategories = await fetch("http://localhost:9000/category");
-      const parsedCategories = await allCategories.json();
+      // const allCategories = await fetch("http://localhost:9000/category");
+      // axios get request
+      const allCategories = await axios.get("http://localhost:9000/category");
+      const parsedCategories = allCategories.data;
       setCategories(parsedCategories);
       console.log(parsedCategories);
     } catch (e) {
@@ -19,8 +21,10 @@ const PostTable = (props) => {
   const getPosts = async () => {
     try {
       console.log(props);
-      const allPosts = await fetch("http://localhost:9000/post");
-      const parsedPosts = await allPosts.json();
+      // const allPosts = await fetch("http://localhost:9000/post");
+      // adding axios get requeset
+      const allPosts = await axios.get("http://localhost:9000/post");
+      const parsedPosts = allPosts.data;
       const swap = (arr) => {
         let a = 0;
         let b = arr.length - 1;

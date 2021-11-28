@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const AddPost = (props) => {
   const [input, setInput] = useState({
@@ -10,8 +11,11 @@ const AddPost = (props) => {
   // category functions
   const getCategories = async () => {
     try {
-      const allCategories = await fetch("http://localhost:9000/category");
-      const parsedCategories = await allCategories.json();
+      // const allCategories = await fetch("http://localhost:9000/category");
+      // adding axios! get request
+      const allCategories = await axios.get("http://localhost:9000/category");
+      const parsedCategories = allCategories.data;
+      console.log(parsedCategories);
       setCategories(parsedCategories);
     } catch (e) {
       console.log(e);
@@ -21,15 +25,11 @@ const AddPost = (props) => {
   // event functions
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
     props.addPost(input);
-    console.log("Submitted");
-    // add request to back end to post this.
   };
 
   // use effect
