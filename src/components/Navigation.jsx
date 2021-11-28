@@ -7,8 +7,8 @@ const Navigation = (props) => {
         <Link to="/" className="p-5">
           Home
         </Link>
-        <Link to="/past" className="p-5">
-          Old
+        <Link to="/categories" className="p-5">
+          Categories
         </Link>
         <Link to="/about" className="p-5">
           About

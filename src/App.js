@@ -1,6 +1,7 @@
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Categories from "./pages/Categories";
 import Navigation from "./components/Navigation";
 import { Routes, Route } from "react-router-dom";
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
+        <Route path="categories" element={<Categories />} />
       </Routes>
     </div>
   );
